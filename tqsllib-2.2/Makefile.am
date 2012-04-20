@@ -1,6 +1,9 @@
 # tqsllib Makefile.in
 # J. Bloom, 16 Feb 2005
 
+# suggested by `autoreconf -i`
+ACLOCAL_AMFLAGS = -I m4
+
 LIBS = @LIBS@
 PLATFORM = @platform@
 
