@@ -23,7 +23,7 @@ libtqsllib_la_SOURCES = tqsllib.cpp openssl_cert.cpp adif.cpp xml.cpp location.c
 	tqslconvert.cpp cabrillo.cpp location.h tqsllib-doc.h xml.h \
 	openssl_cert.h tqslexc.h
 include_HEADERS = tqsllib.h tqslerrno.h cabrillo.h adif.h tqslconvert.h
-libtqsllib_la_LDFLAGS = -version-info @SHLIBVER@:@TQSLLIB_VERSION_MINOR@:0
+libtqsllib_la_LDFLAGS = $(AM_LDFLAGS) -version-info @SHLIBVER@:@TQSLLIB_VERSION_MINOR@:0
 
 EXTRA_PROGRAMS = gen_crq load_cert station_loc converter
 noinst_PROGRAMS = $(make_extra)
