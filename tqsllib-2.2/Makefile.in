@@ -306,7 +306,7 @@ libtqsllib_la_SOURCES = tqsllib.cpp openssl_cert.cpp adif.cpp xml.cpp location.c
 	openssl_cert.h tqslexc.h
 
 include_HEADERS = tqsllib.h tqslerrno.h cabrillo.h adif.h tqslconvert.h
-libtqsllib_la_LDFLAGS = -version-info @SHLIBVER@:@TQSLLIB_VERSION_MINOR@:0
+libtqsllib_la_LDFLAGS = $(AM_LDFLAGS) -version-info @SHLIBVER@:@TQSLLIB_VERSION_MINOR@:0
 noinst_PROGRAMS = $(make_extra)
 libtqsllibd_a_SOURCES = 
 dumptqsldata_SOURCES = dumptqsldata.cpp
