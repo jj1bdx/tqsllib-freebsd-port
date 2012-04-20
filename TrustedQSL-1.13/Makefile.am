@@ -1,7 +1,7 @@
 # J. Bloom, 11/4/2003
 # TrustedQSL applications
 
-LIBS = @LIBS@ $(openssl_static)
+LIBS = $(AM_LDFLAGS) @LIBS@ $(openssl_static)
 TQSLINC=@TQSLINC@
 TQSLLIB=@TQSLLIB@
 ZLIB=@ZLIB@
@@ -18,7 +18,7 @@ STRIP=@STRIP@
 SED=@SED@
 ECHO=@ECHO@
 
-WXCONFIG="$(WXDIR)/bin/wx-config"
+WXCONFIG="$(WXDIR)/bin/wxgtk2-2.8-config"
 
 datadir = @datadir@/TrustedQSL
 helpdir = $(datadir)
