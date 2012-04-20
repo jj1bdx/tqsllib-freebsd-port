@@ -23,8 +23,8 @@ WXCONFIG="$(WXDIR)/bin/wx-config"
 datadir = @datadir@/TrustedQSL
 helpdir = $(datadir)
 
-AM_CXXFLAGS = -Wall `$(WXCONFIG) --cxxflags` -I$(TQSLINC) -I$(ZLIB)/include -I$(EXPAT)/include
-AM_LDFLAGS = -L$(TQSLLIB) -L$(ZLIB)/lib -L$(EXPAT)/lib -L$(OPENSSL)/lib
+AM_CXXFLAGS = -Wall `$(WXCONFIG) --cxxflags` -I$(TQSLINC) -I$(OPENSSL)/include -I$(ZLIB)/include -I$(EXPAT)/include
+AM_LDFLAGS = -L$(TQSLLIB) -L$(OPENSSL)/lib -L$(ZLIB)/lib -L$(EXPAT)/lib
 
 BUILT_SOURCES = tqslbuild.h tqslcertbuild.h helpdir icondir
 
