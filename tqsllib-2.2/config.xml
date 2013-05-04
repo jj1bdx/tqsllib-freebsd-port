@@ -478,6 +478,7 @@
     <mode group="DATA">HFSK</mode>
     <mode group="IMAGE">IMAGE</mode>
     <mode group="DATA">JT65</mode>
+    <mode group="DATA">JT9</mode>
     <mode group="DATA">MFSK16</mode>
     <mode group="DATA">MFSK8</mode>
     <mode group="DATA">MINIRTTY</mode>
