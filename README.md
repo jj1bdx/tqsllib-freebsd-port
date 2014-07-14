@@ -1,4 +1,6 @@
-# FreeBSD port for tqsllib and TrustedQSL (with wxWindows)
+# FreeBSD port for tqsllib
+
+* Note: TrustedQSL has been removed; it's available in Port `comms/trustedqsl`.
 
 * See <http://sourceforge.net/projects/trustedqsl/> and <http://www.arrl.org/lotw/> for the details.
 
