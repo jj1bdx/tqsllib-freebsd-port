@@ -6,10 +6,11 @@
 
 ## About `config.xml`
 
-* Current version of `config.xml`: Version 2.6; last updated 2013-10-14 12:04Z - see <https://lotw.arrl.org/lotwuser/config.tq6> for the details
+* Current version of `config.xml`: Version 2.8
+* See <https://lotw.arrl.org/lotwuser/config.tq6> for the details
 
 * NOTE WELL: how to convert config.tq6 into config.xml
     1. `gunzip -c config.tq6 > config.xml`
-    2. Remove `<tqsldata>` tags
+    2. Remove `<tqsldata>` tags (currently non-existent)
 
 
