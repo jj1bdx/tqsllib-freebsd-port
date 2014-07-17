@@ -4,6 +4,10 @@
 
 * See <http://sourceforge.net/projects/trustedqsl/> and <http://www.arrl.org/lotw/> for the details.
 
+## On V2.4 converter.cpp
+
+* Duplication is allowed by default (no BDB enabled)
+
 ## About `config.xml`
 
 * Current version of `config.xml`: Version 2.8

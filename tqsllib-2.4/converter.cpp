@@ -84,13 +84,14 @@ main(int argc, char *argv[]) {
 			if (tqsl_beginADIFConverter(&conv, argv[optind], certs, ncerts, loc))
 				throw tqslexc();
 		}
-		tqsl_setConverterAllowDuplicates(conv, false);
+		tqsl_setConverterAllowDuplicates(conv, true);
 		optind++;
 		const char *ofile = (optind < argc) ? argv[optind] : "converted.tq7";
 		ofstream out;
 		out.open(ofile, std::ios::out|std::ios::trunc|std::ios::binary);
 		if (!out.is_open())
 			throw myexc(string("Unable to open ") + ofile);
+		tqsl_setConverterAppName(conv, "converter.cpp");
 		bool haveout = false;
 		do {
 			const char *gabbi = tqsl_getConverterGABBI(conv);
