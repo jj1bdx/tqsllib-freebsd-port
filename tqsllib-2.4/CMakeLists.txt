@@ -1,4 +1,8 @@
+cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
+
 project (tqsllib)
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmakemodules/")
 
 set(OSX_ARCH i386 CACHE STRING "Architectures to build for OSX")
 
@@ -66,13 +70,18 @@ set(BUILD_GENCRQ ON)
 set(BUILD_LOADCERT ON)
 set(BUILD_STATIONLOC ON)
 set(BUILD_CONVERTER ON)
+set(BUILD_DUMPTQSLDATA ON)
 
-if(WIN32 AND (BUILD_GENCRQ OR BUILD_LOADCERT OR BUILD_STATIONLOC OR BUILD_CONVERTER))
+if(WIN32 AND 
+        (BUILD_GENCRQ OR BUILD_LOADCERT OR 
+         BUILD_STATIONLOC OR BUILD_CONVERTER OR
+         BUILD_DUMPTQSLDATA ))
 message("I can't build the tqsllib programs on Windows yet. Disabling them...")
 set(BUILD_GENCRQ OFF)
 set(BUILD_LOADCERT OFF)
 set(BUILD_STATIONLOC OFF)
 set(BUILD_CONVERTER OFF)
+set(BUILD_DUMPTQSLDATA OFF)
 endif()
 
 else()
@@ -80,6 +89,7 @@ option(BUILD_GENCRQ "Build gen_crq")
 option(BUILD_LOADCERT "Build load_cert")
 option(BUILD_STATIONLOC "Build station_loc")
 option(BUILD_CONVERTER "Build converter")
+option(BUILD_DUMPTQSLDATA "Build dumptqsldata")
 
 endif(BUILD_ALL_EXTRAPROGS)
 
@@ -102,3 +112,8 @@ if(BUILD_CONVERTER)
 add_executable(converter converter.cpp)
 target_link_libraries(converter ${TQSLLIBNAME})
 endif(BUILD_CONVERTER)
+
+if(BUILD_DUMPTQSLDATA)
+add_executable(dumptqsldata dumptqsldata.cpp)
+target_link_libraries(dumptqsldata ${TQSLLIBNAME})
+endif(BUILD_DUMPTQSLDATA)

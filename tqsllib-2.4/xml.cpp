@@ -20,8 +20,19 @@ using std::pair;
 using std::string;
 using std::ostream;
 using std::map;
+#ifdef USE_TR1
+using std::tr1::shared_ptr;
+#else
+using std::make_shared;
+#endif
 
 namespace tqsllib {
+
+shared_ptr<XMLElement> make_shared_XMLElement(XMLElement e)
+{
+	shared_ptr<XMLElement> p = make_shared<XMLElement>(e);
+	return p;
+}
 
 pair<string, bool>
 XMLElement::getAttribute(const string& key) {
@@ -49,9 +60,9 @@ XMLElement::xml_start(void *data, const XML_Char *name, const XML_Char **atts) {
 	if (el->_parsingStack.empty()) {
 		el->_parsingStack.push_back(el->addElement(new_el));
 	} else {
-		new_el.setPretext(el->_parsingStack.back()->second.getText());
-		el->_parsingStack.back()->second.setText("");
-		el->_parsingStack.push_back(el->_parsingStack.back()->second.addElement(new_el));
+		new_el.setPretext(el->_parsingStack.back()->second.elem->getText());
+		el->_parsingStack.back()->second.elem->setText("");
+		el->_parsingStack.push_back(el->_parsingStack.back()->second.elem->addElement(new_el));
 	}
 }
 
@@ -65,7 +76,7 @@ XMLElement::xml_end(void *data, const XML_Char *name) {
 void
 XMLElement::xml_text(void *data, const XML_Char *text, int len) {
 	XMLElement *el = reinterpret_cast<XMLElement *>(data);
-	el->_parsingStack.back()->second._text.append(text, len);
+	el->_parsingStack.back()->second.elem->_text.append(text, len);
 }
 
 /*

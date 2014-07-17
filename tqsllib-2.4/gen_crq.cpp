@@ -31,6 +31,7 @@
 
 using std::cerr;
 using std::endl;
+using std::cout;
 
 int
 usage() {

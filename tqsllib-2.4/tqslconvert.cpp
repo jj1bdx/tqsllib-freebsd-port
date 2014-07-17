@@ -22,7 +22,7 @@
 #include <string>
 #include <ctype.h>
 #include <set>
-#include <db.h>
+#include <db5/db.h>
 
 #include <locale.h>
 //#include <iostream>
