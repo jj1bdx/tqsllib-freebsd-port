@@ -91,6 +91,7 @@ main(int argc, char *argv[]) {
 		out.open(ofile, std::ios::out|std::ios::trunc|std::ios::binary);
 		if (!out.is_open())
 			throw myexc(string("Unable to open ") + ofile);
+		tqsl_setConverterAppName(conv, "converter.cpp");
 		bool haveout = false;
 		do {
 			const char *gabbi = tqsl_getConverterGABBI(conv);
