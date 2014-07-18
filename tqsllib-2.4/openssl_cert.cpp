@@ -4221,13 +4221,15 @@ tqsl_setCertificateStatus(long serial, const char *status) {
 		}
 	}
 
-	XMLElement cs("Cert");
+	shared_ptr<XMLElement> cs_p = make_shared<XMLElement>("Cert");
+	XMLElement cs = *cs_p;
 	cs.setPretext("\n  ");
-	XMLElement se;
+	shared_ptr<XMLElement> se_p(new XMLElement);
+	XMLElement se = *se_p;
 	se.setPretext(cs.getPretext() + "  ");
 	se.setElementName("status");
 	se.setText(status);
-	cs.addElement(shared_ptr<XMLElement>(&se));
+	cs.addElement(se_p);
 
 	cs.setAttribute("serial", sstr);
 	cs.setText("\n  ");
@@ -4235,7 +4237,7 @@ tqsl_setCertificateStatus(long serial, const char *status) {
 	if (exists)
 		ellist.erase(ep);
 
-	sfile.addElement(shared_ptr<XMLElement>(&cs));
+	sfile.addElement(cs_p);
 	sfile.setText("\n");
 	return tqsl_dump_cert_status_data(sfile);
 }
