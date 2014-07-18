@@ -5,6 +5,7 @@ if(APPLE) #exclude obsolete default OSX db
 FIND_PATH(BDB_INCLUDE_DIR db.h NO_DEFAULT_PATH PATHS
   "/usr/local/BerkeleyDB.6.0/include"
   "/usr/local/BerkeleyDB.5.3/include"
+  "/usr/local/include"
   "${BDB_PREFIX}/include"
   "${BDB_PREFIX}/include/db5"
 ) 

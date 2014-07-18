@@ -1,0 +1,8 @@
+#!/bin/sh
+cmake \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DBUILD_ALL_EXTRAPROGS=ON \
+    -DTQSLLIB_STATIC=ON \
+    -DCMAKE_OSX_ARCHITECTURES="x86_64" \
+    -DOSX_ARCH="x86_64" \
+    .
