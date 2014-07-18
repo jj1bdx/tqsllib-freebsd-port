@@ -4214,28 +4214,28 @@ tqsl_setCertificateStatus(long serial, const char *status) {
 	for (ep = ellist.find("Cert"); ep != ellist.end(); ep++) {
 		if (ep->first != "Cert")
 			break;
-		pair<string, bool> rval = ep->second.get()->getAttribute("serial");
+		pair<string, bool> rval = ep->second->getAttribute("serial");
 		if (rval.second && strtol(rval.first.c_str(), NULL, 10) == serial) {
 			exists = true;
 			break;
 		}
 	}
 
-	shared_ptr<XMLElement> cs_p = make_shared<XMLElement>("Cert");
-	cs_p->setPretext("\n  ");
-	shared_ptr<XMLElement> se_p(new XMLElement);
-	se_p->setPretext(cs_p->getPretext() + "  ");
-	se_p->setElementName("status");
-	se_p->setText(status);
-	cs_p->addElement(se_p);
+	shared_ptr<XMLElement> cs(new XMLElement("Cert"));
+	cs->setPretext("\n  ");
+	shared_ptr<XMLElement> se(new XMLElement);
+	se->setPretext(cs->getPretext() + "  ");
+	se->setElementName("status");
+	se->setText(status);
+	cs->addElement(se);
 
-	cs_p->setAttribute("serial", sstr);
-	cs_p->setText("\n  ");
+	cs->setAttribute("serial", sstr);
+	cs->setText("\n  ");
 
 	if (exists)
 		ellist.erase(ep);
 
-	sfile.addElement(cs_p);
+	sfile.addElement(cs);
 	sfile.setText("\n");
 	return tqsl_dump_cert_status_data(sfile);
 }
