@@ -6,7 +6,7 @@ cmake \
     -DBUILD_ALL_EXTRAPROGS=ON \
     -DTQSLLIB_STATIC=ON \
     .
-make
+make -j8
 #
 install -c -m 0755 gen_crq ${TARGET_DIR}
 install -c -m 0755 dumptqsldata ${TARGET_DIR}
