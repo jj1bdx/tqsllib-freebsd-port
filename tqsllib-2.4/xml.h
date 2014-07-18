@@ -43,7 +43,6 @@ namespace tqsllib {
 
 
 class XMLElement;
-shared_ptr<XMLElement> make_shared_XMLElement(XMLElement e);
 class XMLElementP {
 	public:
 		XMLElementP() {}
@@ -52,7 +51,7 @@ class XMLElementP {
 		shared_ptr<XMLElement> elem;
 };
 
-typedef multimap<string, XMLElementP> XMLElementList;
+typedef multimap<string, shared_ptr<XMLElement> > XMLElementList;
 typedef map<string, string> XMLElementAttributeList;
 
 /** Encapsulates an XML element
@@ -86,7 +85,7 @@ class XMLElement {
       */
 	pair<string, bool> getAttribute(const string& key);
 	/// Add an element to the list of contained subelements
-	XMLElementList::iterator addElement(XMLElement& element);
+	XMLElementList::iterator addElement(shared_ptr<XMLElement> element);
 	XMLElementAttributeList& getAttributeList() { return _attributes; }
 	XMLElementList& getElementList() { return _elements; }
 	/// Parse an XML file and add its element tree to this element
@@ -158,8 +157,8 @@ XMLElement::setAttribute(const string& key, const string& value) {
 }
 
 inline XMLElementList::iterator
-XMLElement::addElement(XMLElement& element) {
-	XMLElementList::iterator it = _elements.insert(make_pair(element.getElementName(), make_shared_XMLElement(element)));
+XMLElement::addElement(shared_ptr<XMLElement> element) {
+	XMLElementList::iterator it = _elements.insert(make_pair(element->getElementName(), element));
 	return it;
 }
 
@@ -182,9 +181,9 @@ inline bool
 XMLElement::getNextElement(XMLElement& element) {
 	if (_iter == _elements.end())
 		return false;
-	if (_iterByName && _iter->second.elem->getElementName() != _iterName)
+	if (_iterByName && _iter->second.get()->getElementName() != _iterName)
 		return false;
-	element = *_iter->second.elem.get();
+	element = *_iter->second.get();
 	++_iter;
 	return true;
 }

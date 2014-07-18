@@ -1152,9 +1152,6 @@ update_page(int page, TQSL_LOCATION *loc) {
 						field.idx = static_cast<int>(field.items.size());
 					field.items.push_back(item);
 				}
-				if (field.idx == -1 && field.items.size() == 1) {
-					field.idx = 0;
-				}
 				if (field.idx >= 0) {
 					field.cdata = field.items[field.idx].text;
 				}
@@ -1960,7 +1957,7 @@ tqsl_load_loc(TQSL_LOCATION *loc, XMLElementList::iterator ep, bool ignoreZones)
 			if (field.gabbi_name != "") {
 				// A field that may exist
 				XMLElement el;
-				if (ep->second.elem->getFirstElement(field.gabbi_name, el)) {
+				if (ep->second.get()->getFirstElement(field.gabbi_name, el)) {
 					field.cdata = el.getText();
 					switch (field.input_type) {
                                                 case TQSL_LOCATION_FIELD_DDLIST:
@@ -2089,11 +2086,11 @@ tqsl_mergeStationLocations(const char *locdata) {
 	for (ep = ellist.find("StationData"); ep != ellist.end(); ep++) {
 		if (ep->first != "StationData")
 			break;
-		pair<string, bool> rval = ep->second.elem->getAttribute("name");
+		pair<string, bool> rval = ep->second.get()->getAttribute("name");
 		if (rval.second) {
 			TQSL_LOCATION *oldloc;
 			TQSL_LOCATION *newloc;
-			ep->second.elem->getFirstElement("CALL", call);
+			ep->second.get()->getFirstElement("CALL", call);
 			for (size_t j = 0; j < calls.size(); j++) {
 				if (calls[j] == call.getText()) {
 					if (tqsl_getStationLocation(reinterpret_cast<tQSL_Location *>(&oldloc), rval.first.c_str())) { // Location doesn't exist
@@ -2128,7 +2125,7 @@ tqsl_deleteStationLocation(const char *name) {
 	for (ep = ellist.find("StationData"); ep != ellist.end(); ep++) {
 		if (ep->first != "StationData")
 			break;
-		pair<string, bool> rval = ep->second.elem->getAttribute("name");
+		pair<string, bool> rval = ep->second.get()->getAttribute("name");
 		if (rval.second && !strcasecmp(rval.first.c_str(), name)) {
 			ellist.erase(ep);
 			return tqsl_dump_station_data(sfile);
@@ -2161,7 +2158,7 @@ tqsl_getStationLocation(tQSL_Location *locp, const char *name) {
 	for (ep = ellist.find("StationData"); ep != ellist.end(); ep++) {
 		if (ep->first != "StationData")
 			break;
-		pair<string, bool> rval = ep->second.elem->getAttribute("name");
+		pair<string, bool> rval = ep->second.get()->getAttribute("name");
 		if (rval.second && !strcasecmp(trim(rval.first).c_str(), trim(loc->name).c_str())) {
 			exists = true;
 			break;
@@ -2348,7 +2345,7 @@ tqsl_location_to_xml(TQSL_LOCATION *loc, XMLElement& sd) {
 					break;
 			}
 			if (strcmp(fd.getText().c_str(), ""))
-				sd.addElement(fd);
+				sd.addElement(shared_ptr<XMLElement>(&fd));
 		}
 		int rval;
 		if (tqsl_hasNextStationLocationCapture(loc, &rval) || !rval)
@@ -2410,7 +2407,7 @@ tqsl_saveStationLocationCapture(tQSL_Location locp, int overwrite) {
 	for (ep = ellist.find("StationData"); ep != ellist.end(); ep++) {
 		if (ep->first != "StationData")
 			break;
-		pair<string, bool> rval = ep->second.elem->getAttribute("name");
+		pair<string, bool> rval = ep->second.get()->getAttribute("name");
 		if (rval.second && !strcasecmp(rval.first.c_str(), loc->name.c_str())) {
 			exists = true;
 			break;
@@ -2431,7 +2428,7 @@ tqsl_saveStationLocationCapture(tQSL_Location locp, int overwrite) {
 	if (exists)
 		ellist.erase(ep);
 
-	sfile.addElement(sd);
+	sfile.addElement(shared_ptr<XMLElement>(&sd));
 	sfile.setText("\n");
 	return tqsl_dump_station_data(sfile);
 }
