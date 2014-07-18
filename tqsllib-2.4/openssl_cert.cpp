@@ -4222,17 +4222,15 @@ tqsl_setCertificateStatus(long serial, const char *status) {
 	}
 
 	shared_ptr<XMLElement> cs_p = make_shared<XMLElement>("Cert");
-	XMLElement cs = *cs_p;
-	cs.setPretext("\n  ");
+	cs_p->setPretext("\n  ");
 	shared_ptr<XMLElement> se_p(new XMLElement);
-	XMLElement se = *se_p;
-	se.setPretext(cs.getPretext() + "  ");
-	se.setElementName("status");
-	se.setText(status);
-	cs.addElement(se_p);
+	se_p->setPretext(cs_p->getPretext() + "  ");
+	se_p->setElementName("status");
+	se_p->setText(status);
+	cs_p->addElement(se_p);
 
-	cs.setAttribute("serial", sstr);
-	cs.setText("\n  ");
+	cs_p->setAttribute("serial", sstr);
+	cs_p->setText("\n  ");
 
 	if (exists)
 		ellist.erase(ep);
