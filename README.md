@@ -1,6 +1,6 @@
 # FreeBSD port for tqsllib
 
-* Note: TrustedQSL has been removed; it's available in Port `comms/trustedqsl`.
+* Note: TrustedQSL has been removed; it's available in Port `comms/trustedqsl`. See also [my private port for TrustedQSL](https://github.com/jj1bdx/trustedqsl-private-port).
 
 * See <http://sourceforge.net/projects/trustedqsl/> and <http://www.arrl.org/lotw/> for the details.
 
